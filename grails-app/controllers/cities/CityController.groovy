@@ -9,4 +9,10 @@ class CityController
   {
     render contentType: 'image/png', file: tileService.getTile( params )
   }
+
+  def getHeatMapTile()
+  {
+    render contentType: 'image/png', file: tileService.getHeatMapTile( params )
+  }
+
 }

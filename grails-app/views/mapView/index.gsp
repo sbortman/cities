@@ -49,6 +49,7 @@
                     }
                 } )
             } ),
+/*
             new ol.layer.Tile( {
                 source: new ol.source.TileWMS( {
                     url: "${createLink( controller: 'city', action: 'getTile' )}",
@@ -59,7 +60,20 @@
                     }
                 } ),
                 extent: ol.extent.buffer( [-180, -90, 180, 90], 0 )
+            } ),
+*/
+            new ol.layer.Tile( {
+                source: new ol.source.TileWMS( {
+                    url: "${createLink( controller: 'city', action: 'getHeatMapTile' )}",
+                    params: {
+                        VERSION: '1.1.1',
+                        SRS: 'EPSG:4326',
+                        LAYERS: 'city'
+                    }
+                } ),
+                extent: ol.extent.buffer( [-180, -90, 180, 90], 0 )
             } )
+
         ];
 
         var map = new ol.Map( {
