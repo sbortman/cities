@@ -41,6 +41,19 @@
     $( 'body' ).ready( function ()
     {
         var layers = [
+
+            new ol.layer.Tile( {
+                source: new ol.source.TileWMS( {
+                    url: "${createLink( controller: 'mapView', action: 'getReferenceTile' )}",
+                    params: {
+                        VERSION: '1.1.1',
+                        SRS: 'EPSG:4326',
+                        LAYERS: ''
+                    }
+                } )
+            } ),
+
+/*
             new ol.layer.Tile( {
                 source: new ol.source.TileWMS( {
                     url: 'http://demo.opengeo.org/geoserver/wms',
@@ -49,6 +62,7 @@
                     }
                 } )
             } ),
+*/
 /*
             new ol.layer.Tile( {
                 source: new ol.source.TileWMS( {

@@ -13,7 +13,7 @@ class BootStrap
     if ( City.count() == 0 )
     {
       City.withTransaction {
-        def csvFile = 'cities.csv' as File
+        def csvFile = 'data/cities.csv' as File
         def columnNames = null
 
         def gf = new GeometryFactory( new PrecisionModel(), 4326 );

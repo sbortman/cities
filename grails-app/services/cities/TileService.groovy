@@ -7,6 +7,7 @@ import geoscript.geom.Bounds
 import geoscript.process.Process
 import geoscript.render.Map as GeoScriptMap
 import geoscript.style.ColorMap
+import geoscript.workspace.Directory
 import geoscript.workspace.Workspace
 import static geoscript.style.Symbolizers.*
 
@@ -140,5 +141,40 @@ class TileService
     }
 
     return buffer.toByteArray()
+  }
+
+  def getReferenceTile(def params)
+  {
+    println params
+
+    def width = params['WIDTH'].toInteger()
+    def height = params['HEIGHT'].toInteger()
+    def format = params['FORMAT'].split( '/' )[-1]
+    def srs = params['SRS']
+    def bbox = params['BBOX'].split( ',' )*.toDouble() as Bounds
+    def buffer = new ByteArrayOutputStream()
+    def shpDir = new Directory( 'data' )
+    def countries = shpDir['world_adm0']
+    def states = shpDir['statesp020']
+    def style = fill(opacity: 0) + stroke(color: '#00FF00')
+
+    countries.style = style
+    states.style = style
+
+    def map = new GeoScriptMap(
+        width: width,
+        height: height,
+        type: format,
+        proj: srs,
+        bounds: bbox,
+        layers: [countries, states]
+    )
+    map.render( buffer )
+    map.close()
+
+    shpDir.close()
+
+    return buffer.toByteArray()
+
   }
 }
